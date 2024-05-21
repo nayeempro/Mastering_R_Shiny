@@ -1,0 +1,100 @@
+library(shiny)
+
+
+# Define a vector for choices
+animals <- c("dog", "cat", "mouse", "bird", "other", "I hate animals")
+
+
+ui <- fluidPage(
+  "Text Input",
+  sliderInput("min", "Limit (minimum)",
+              value = 50, #by default value is 50
+              min = 0,
+              max = 100),
+  textInput("name", "What's your name?"),
+  passwordInput("password", "What's your password?"),
+  textAreaInput("story", "Tell me about yourself", rows = 3),
+  
+  "Numeric Input",
+  numericInput("num", "Number one",
+               value = 0, min = 0, max = 100),
+  sliderInput("num2", "Number two",
+              value = 50, min = 0, max = 100),
+  sliderInput("rng", "Range",
+              value = c(10, 20), min = 0, max = 100),
+  
+  
+  #DATE INPUT
+  "DATE INPUT",
+  dateInput("dob", "When were you born?(US std)",format = "mm/dd/yyyy"),
+  dateRangeInput("holiday", "When do you want to go on vacation next?"),
+  
+  #Limited Choices
+  
+  "LIMITED CHOICES",
+
+ # animals <- c("dog", "cat", "mouse", "bird", "other", "I hate animals"),
+  
+
+
+  selectInput("state", "What's your favourite state?", state.name),
+  radioButtons("animal", "What's your favourite animal?",
+               choices = c("dog", "cat", "mouse", "bird", "other", "I hate animals")),
+  
+  #ICON
+  "Icon Input",
+  radioButtons("rb", "Choose one:",
+               choiceNames = list(
+                 icon("angry"),
+                 icon("smile"),
+                 icon("sad-tear")
+               ),
+               choiceValues = list("angry", "happy", "sad")
+  ),
+  
+  
+  #SELECT MULTIPLE
+  "SELECT MULTIPLE",
+ 
+ selectInput(
+   "state", "What's your favourite state?", state.name,
+   multiple = TRUE
+ ),
+ 
+ #groupbox
+ checkboxGroupInput("animal", "What animals do you like?", animals),
+ 
+ "Checkbox (Yes/No)",
+ #check box (yes/no)
+ checkboxInput("cleanup", "Are you Student?", value = TRUE),
+ checkboxInput("shutdown", "Are you teacher?"),
+ 
+ #File Input
+ "File input",
+ fileInput("upload", label = "Choose your file"),
+ 
+ #action Button
+ 
+ "Action Button",
+ 
+ actionButton("click", "Click me!"),
+ actionButton("drink", "Drink me!", icon = icon("cocktail")),
+ 
+ 
+ fluidRow(
+   actionButton("click", "Click me!", class = "btn-danger"),
+   actionButton("drink", "Drink me!", class = "btn-lg btn-success")
+ ),
+ fluidRow(
+   actionButton("eat", "Eat me!", class = "btn-block")
+ )
+
+
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
